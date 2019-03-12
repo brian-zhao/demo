@@ -1,0 +1,31 @@
+<h1>Giftcard</h1>
+<table>
+  <tr>
+    <th>Value</th>
+    <th>Voucher number</th>
+    <th>Pin</th>
+    <th>Product Name</th>
+    <th>Product Description</th>
+    <th>Archived</th>
+    <th></th>
+  </tr>
+  {% for gf in object_list %}
+  <tr>
+    <td>{{ gf.card_value }}</td>
+    <td>{{ gf.voucher_number }}</td>
+    <td>{{ gf.pin }}</td>
+    <td>{{ gf.product_name }}</td>
+    <td>{{ gf.product_description }}</td>
+    <td>{{ gf.archived }}</td>
+    {% if not gf.archived %}
+    <td><a href="{% url 'archive' gf.id user.username%}">Archive This</a></td>
+    {% else %}
+    <td><a href="{% url 'active' gf.id user.username%}">Active This</a></td>
+    {% endif %}
+  </tr>
+  {% empty %}
+  <li>No Giftcard yet.</li>
+  {% endfor %}
+
+  <p><a href="{% url 'index' %}">Home</a></p>
+</table>
